@@ -1,6 +1,7 @@
 #include "wasm4.h"
+#include "lib.h"
 
-const uint8_t smiley[] = {
+const u8 smiley[] = {
     0b11000011,
     0b10000001,
     0b00100100,
@@ -11,11 +12,19 @@ const uint8_t smiley[] = {
     0b11000011,
 };
 
+typedef struct {
+    Room *a;
+} Room;
+
+void start () {
+    palette_setup(palette_og);
+}
+
 void update () {
     *DRAW_COLORS = 2;
     text("YEEEEE!", 10, 10);
 
-    uint8_t gamepad = *GAMEPAD1;
+    u8 gamepad = *GAMEPAD1;
     if (gamepad & BUTTON_1) {
         *DRAW_COLORS = 4;
     }
