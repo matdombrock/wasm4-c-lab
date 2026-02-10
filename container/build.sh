@@ -1,3 +1,3 @@
 #!/bin/bash
 
-podman build -t wasm4-c .
+podman build -t wasm4-c ./container
