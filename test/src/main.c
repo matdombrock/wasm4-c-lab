@@ -1,6 +1,7 @@
+#include "../../lib/lib.h"
 #include "wasm4.h"
-#include "lib.h"
 
+// clang-format off
 const u8 smiley[] = {
     0b11000011,
     0b10000001,
@@ -11,24 +12,28 @@ const u8 smiley[] = {
     0b10011001,
     0b11000011,
 };
+// clang-format on
 
 typedef struct {
-    Room *a;
-} Room;
+  u16 frame;
+} State;
 
-void start () {
-    palette_setup(palette_og);
-}
+static State st = {
+    .frame = 0,
+};
 
-void update () {
-    *DRAW_COLORS = 2;
-    text("YEEEEE!", 10, 10);
+void start() { palette_setup(palette_og); }
 
-    u8 gamepad = *GAMEPAD1;
-    if (gamepad & BUTTON_1) {
-        *DRAW_COLORS = 4;
-    }
+void update() {
+  *DRAW_COLORS = 2;
+  text("YEEEEE!", 10, 10);
 
-    blit(smiley, 76, 76, 8, 8, BLIT_1BPP);
-    text("Press X to blink", 16, 90);
+  u8 gamepad = *GAMEPAD1;
+  if (gamepad & BUTTON_1) {
+    *DRAW_COLORS = 4;
+  }
+
+  blit(smiley, 76, 76, 8, 8, BLIT_1BPP);
+  text("Press X to blink", 16, 90);
+  st.frame += 1;
 }
